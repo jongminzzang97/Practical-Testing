@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sample.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
+import sample.cafekiosk.spring.api.service.order.request.OrderCreateServiceRequest;
 import sample.cafekiosk.spring.api.service.order.response.OrderResponse;
 import sample.cafekiosk.spring.domain.order.Order;
 import sample.cafekiosk.spring.domain.order.OrderRepository;
@@ -44,7 +44,7 @@ public class OrderService {
             .collect(Collectors.groupingBy(p -> p, Collectors.counting()));
     }
 
-    private List<Product> findProductBy(List<String> productNumbers) {
+    private List<Product> findProductsBy(List<String> productNumbers) {
         List<Product> products = productRepository.findAllByProductNumberIn(productNumbers);
         Map<String, Product> productMap = products.stream()
             .collect(Collectors.toMap(Product::getProductNumber, p -> p));
@@ -54,9 +54,10 @@ public class OrderService {
             .collect(Collectors.toList());
     }
 
-    public OrderResponse createOrder(OrderCreateRequest request, LocalDateTime registeredDateTime) {
+    public OrderResponse createOrder(OrderCreateServiceRequest request,
+        LocalDateTime registeredDateTime) {
         List<String> productNumbers = request.getProductNumbers();
-        List<Product> products = findProductBy(productNumbers);
+        List<Product> products = findProductsBy(productNumbers);
 
         deductStockQuantities(products);
 
@@ -86,4 +87,5 @@ public class OrderService {
             }
         }
     }
+    
 }
