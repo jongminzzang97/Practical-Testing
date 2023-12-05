@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.groups.Tuple.tuple;
 import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.SELLING;
 import static sample.cafekiosk.spring.domain.product.ProductType.BAKERY;
-import static sample.cafekiosk.spring.domain.product.ProductType.BOTTlE;
+import static sample.cafekiosk.spring.domain.product.ProductType.BOTTLE;
 import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 
 import java.time.LocalDateTime;
@@ -115,7 +115,7 @@ class OrderServiceTest {
     void createOrderWithStock() {
         // given
         LocalDateTime registeredDateTime = LocalDateTime.now();
-        Product product1 = createProduct("001", BOTTlE, 1000);
+        Product product1 = createProduct("001", BOTTLE, 1000);
         Product product2 = createProduct("002", BAKERY, 3000);
         Product product3 = createProduct("003", HANDMADE, 5000);
         productRepository.saveAll(List.of(product1, product2, product3));
@@ -160,7 +160,7 @@ class OrderServiceTest {
     void createOrderWithNoStock() {
         // given
         LocalDateTime registeredDateTime = LocalDateTime.now();
-        Product product1 = createProduct("001", BOTTlE, 1000);
+        Product product1 = createProduct("001", BOTTLE, 1000);
         Product product2 = createProduct("002", BAKERY, 3000);
         Product product3 = createProduct("003", HANDMADE, 5000);
         productRepository.saveAll(List.of(product1, product2, product3));

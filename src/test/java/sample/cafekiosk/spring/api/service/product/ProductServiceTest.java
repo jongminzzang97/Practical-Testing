@@ -2,7 +2,7 @@ package sample.cafekiosk.spring.api.service.product;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static sample.cafekiosk.spring.domain.product.ProductSellingStatus.SELLING;
-import static sample.cafekiosk.spring.domain.product.ProductType.BOTTlE;
+import static sample.cafekiosk.spring.domain.product.ProductType.BOTTLE;
 import static sample.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class ProductServiceTest {
     @Test
     void createProduct() {
         // given
-        Product product1 = createProduct("001", BOTTlE, "아메리카노", 1000);
+        Product product1 = createProduct("001", BOTTLE, "아메리카노", 1000);
         productRepository.saveAll(List.of(product1));
 
         ProductCreateServiceRequest request = ProductCreateServiceRequest.builder()
@@ -57,7 +57,7 @@ public class ProductServiceTest {
         assertThat(productRepository.findAll()).hasSize(2)
             .extracting("productNumber", "type", "sellingStatus", "name", "price")
             .containsExactlyInAnyOrder(
-                Tuple.tuple("001", BOTTlE, SELLING, "아메리카노", 1000),
+                Tuple.tuple("001", BOTTLE, SELLING, "아메리카노", 1000),
                 Tuple.tuple("002", HANDMADE, SELLING, "카푸치노", 5000)
             );
     }
