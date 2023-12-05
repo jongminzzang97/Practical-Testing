@@ -11,13 +11,11 @@ import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
+import sample.cafekiosk.spring.IntegrationTestSupport;
 
-@ActiveProfiles("test")
-// @SpringBootTest -> 실제 스프링 환경을 띄워서 테스트
-@DataJpaTest // -> 비슷한데, SpringBootTest보다는 가벼움 -> JPA 관련 Bean만 주입을 해줌
-class ProductRepositoryTest {
+@Transactional
+class ProductRepositoryTest extends IntegrationTestSupport {
 
     @Autowired
     private ProductRepository productRepository;
